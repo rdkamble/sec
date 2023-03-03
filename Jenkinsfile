@@ -40,10 +40,10 @@ pipeline {
 	        }
         }
         
-        stage ('Compile and Build') {
-		    steps{
-			    sh 'mvn -B -C -DskipTests clean package'
-			}
-		}
+        stage ('Generate build') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
     }
 }  
