@@ -34,7 +34,7 @@ pipeline {
     
         stage ('Static Application Security Testing') {
 	        steps {
-        	    withSonarQubeEnv('sonar-server') {
+        	    withSonarQubeEnv('SonarQube') {
 	                sh 'mvn sonar:sonar'
 			    }
 	        }
