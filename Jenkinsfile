@@ -9,32 +9,33 @@ pipeline {
                 ''' 
             }
         }
-        stage ('Check secrets') {
-            steps {
-                sh 'trufflehog3 https://github.com/rdkamble/sec.git -f json -o truffelhog_output.json || true'
-            }
-        }
-        stage ('Software Composition Analysis') {
-            steps {
-                dependencyCheck additionalArguments: ''' 
-                    -o "./" 
-                    -s "./"
-                    -f "ALL" 
-                    --prettyPrint''', odcInstallation: 'owasp-dc'
+//         stage ('Check secrets') {
+//             steps {
+//                 sh 'trufflehog3 https://github.com/rdkamble/sec.git -f json -o truffelhog_output.json || true'
+//             }
+//         }
+//         stage ('Software Composition Analysis') {
+//             steps {
+//                 dependencyCheck additionalArguments: ''' 
+//                     -o "./" 
+//                     -s "./"
+//                     -f "ALL" 
+//                     --prettyPrint''', odcInstallation: 'owasp-dc'
 
-                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
-            }
-        }
+//                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+//             }
+//         }
   
-        stage ('Host vulnerability assessment') {
-            steps {
-                sh 'echo "In-Progress"'
-            }
-        }
+//         stage ('Host vulnerability assessment') {
+//             steps {
+//                 sh 'echo "In-Progress"'
+//             }
+//         }
     
         stage ('Static Application Security Testing') {
 	        steps {
         	    withSonarQubeEnv('SonarQube') {
+                    sh 'mvn clean'
 	                sh 'mvn sonar:sonar'
                   //sh 'sudo python3 sonarqube.py'
 			    }
