@@ -36,6 +36,7 @@ pipeline {
 	        steps {
         	    withSonarQubeEnv('SonarQube') {
 	                sh 'mvn sonar:sonar'
+                  //sh 'sudo python3 sonarqube.py'
 			    }
 	        }
         }
