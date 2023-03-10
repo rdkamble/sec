@@ -39,6 +39,6 @@ pipeline {
 		      sh './sonarqube_report.sh'
 		    }
 	      }
-    x}
+    }
    }
 }  
