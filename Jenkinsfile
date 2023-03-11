@@ -25,20 +25,20 @@ pipeline {
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
        }
-  
-     stage ('Host vulnerability assessment') {
-        steps {
-             sh 'echo "In-Progress"'
-        }
-     }
-    
-    stage ('SAST - SonarQube') {
+ 
+      stage ('SAST - SonarQube') {
 	      steps {
         	withSonarQubeEnv('sonarqube') {
 	          sh 'mvn sonar:sonar'
 		      //sh './sonarqube_report.sh'
 		    }
 	      }
-    }
+      }
+      
+      stage ('Build'){
+          steps{
+            sh 'mvn clean package'
+          }
+      }
    }
 }  
